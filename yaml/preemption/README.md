@@ -12,7 +12,7 @@ In this example, there are 2 teams that work in their own namespace:
 
 ### Kueue Configuration 
 
-There are 2 `ResourceFlavor` that manages the [CPU/Memory](default-flavor.yaml) and [GPU](gpu-flavor.yaml) resources. The GPU resource tolerates nodes that have been tainted. 
+There are 2 `ResourceFlavor` that manages the [CPU/Memory](default-flavor.yaml) and [GPU](gpu-flavor.yaml) resources. The GPU `ResourceFlavor` tolerates nodes that have been tainted. 
 
 Both teams have their invididual cluster queue that is associated with their respective namespace.
 
