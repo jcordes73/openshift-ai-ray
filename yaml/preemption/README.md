@@ -79,7 +79,7 @@ Team A will preempt team B when it has insufficient resources to run.
 ## Setting Up the Demo
 ---
 ```
-$ make setup-kueue-examples
+make setup-kueue-examples
 ```
 
 Running the example
@@ -87,7 +87,7 @@ Running the example
 
 1. Create a ray cluster for team B. Wait for the cluster to be running.
 ```
-$ oc create -f yaml/preemption/team-b-ray-cluster-dev.yaml
+oc create -f yaml/preemption/team-b-ray-cluster-dev.yaml
 ```
 
 ```bash
@@ -104,7 +104,7 @@ raycluster-dev-worker-small-group-test-5k9j5   1/1     Running   0          43s
 
 2. Create a Ray cluster for team A. 
 ```bash
-$ oc create -f yaml/preemption/team-a-ray-cluster-prod.yaml
+oc create -f yaml/preemption/team-a-ray-cluster-prod.yaml
 ```
 
 3. Observe team B cluster is suspended and team A cluster is running because of preemption.
