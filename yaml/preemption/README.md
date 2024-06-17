@@ -52,7 +52,7 @@ metadata:
 | Name                                   | CPU | Memory (GB) | GPU 
 | -------------------------------------- | --- | ----------- | ----
 | [Team A](team-a-ray-cluster-prod.yaml) | 10  | 24          | 4 
-| [Team B](team-b-ray-cluster-dev.yaml)  | 8   | 16          | 0
+| [Team B](team-b-ray-cluster-dev.yaml)  | 6   | 16          | 0
 
 
 ### Premption
@@ -73,17 +73,17 @@ spec:
     withinClusterQueue: Never
 ```
 
-Team A will preempt team B when it has insufficient resources to run. 
+Team A will preempt team B because it has insufficient resources to run. 
 
 
 ## Setting Up the Demo
----
+
 ```
 make setup-kueue-examples
 ```
 
-Running the example
----
+## Running the example
+
 
 1. Create a ray cluster for team B. Wait for the cluster to be running.
 ```
