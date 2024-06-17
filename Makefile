@@ -1,19 +1,16 @@
 BASE:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
-SHELL:= /bin/bash
-WORK_DIR=$(shell mktemp -d)
+SHELL:=/bin/bash
+WORK_DIR:=/tmp/openshift-ai-ray
 
-#include .env
-#export
-
-.PHONY: deploy-oai clean
+.PHONY: install-openshift-ai add-gpu-machineset setup-kueue-premption clean
 
 install-openshift-ai:
 	add-gpu-operator
 	deploy-oai
 
 add-gpu-machineset:
-	$(BASE)/scripts/add-gpu.sh $(WORK_DIR)
-	@rm -rf "$(WORK_DIR)"
+	@mkdir -p $(WORK_DIR)
+	@$(BASE)/scripts/add-gpu.sh $(WORK_DIR)	
 
 add-gpu-operator:
 	oc apply -f $(BASE)/yaml/operators/nfd.yaml
