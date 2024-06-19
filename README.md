@@ -32,7 +32,6 @@ make install-openshift-ai
 ## Examples
 
 1. [Preemption using priority with quota](yaml/preemption/)
-1. WIP Distributed training with Ray
-
+1. [Distributed training with Ray for Stable Diffusion](yaml/distributed-training/)
 
 

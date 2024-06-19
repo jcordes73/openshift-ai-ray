@@ -1,6 +1,8 @@
 BASE:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
-SHELL:=/bin/bash
-WORK_DIR:=/tmp/openshift-ai-ray
+SHELL=/bin/sh
+WORK_DIR=/tmp/openshift-ai-ray
+JOB_NAME=git-clone-job
+NAMESPACE=distributed
 
 .PHONY: install-openshift-ai add-gpu-machineset setup-kueue-premption clean
 
@@ -34,9 +36,41 @@ deploy-oai:
 	oc apply -f $(BASE)/yaml/operators/oai.yaml
 	
 setup-kueue-premption:
+	@$(BASE)/scripts/clean-kueue.sh
+	
 	oc create -f $(BASE)/yaml/preemption/team-a-ns.yaml -f $(BASE)/yaml/preemption/team-b-ns.yaml
 	oc create -f $(BASE)/yaml/preemption/team-a-rb.yaml -f $(BASE)/yaml/preemption/team-b-rb.yaml
 	oc create -f $(BASE)/yaml/preemption/default-flavor.yaml -f $(BASE)/yaml/preemption/gpu-flavor.yaml
 	oc create -f $(BASE)/yaml/preemption/team-a-cq.yaml -f $(BASE)/yaml/preemption/team-b-cq.yaml -f $(BASE)/yaml/preemption/shared-cq.yaml
 	oc create -f $(BASE)/yaml/preemption/team-a-local-queue.yaml -f $(BASE)/yaml/preemption/team-b-local-queue.yaml
+
+setup-ray-distributed-training: 	
+	@$(BASE)/scripts/clean-kueue.sh
+
+	-oc delete -f $(BASE)/yaml/distributed/git-clone.yaml
+	-oc delete -f $(BASE)/yaml/distributed/workbench.yaml
+	-oc delete -f $(BASE)/yaml/distributed/cephfs-pvc.yaml
+	-oc delete -f $(BASE)/yaml/distributed/ns.yaml
+
+	oc create -f $(BASE)/yaml/distributed/ns.yaml
+	oc create -f $(BASE)/yaml/distributed/default-flavor.yaml -f $(BASE)/yaml/distributed/gpu-flavor.yaml
+	oc create -f $(BASE)/yaml/distributed/cluster-queue.yaml
+	oc create -f $(BASE)/yaml/distributed/local-queue.yaml
+	oc create -f $(BASE)/yaml/distributed/cephfs-pvc.yaml
+	
+	oc create -f $(BASE)/yaml/distributed/git-clone.yaml
+	@echo "Waiting for job $(JOB_NAME) to complete..."
+    
+	@until oc get job $(JOB_NAME) -n $(NAMESPACE) -o jsonpath='{.status.conditions[?(@.type=="Complete")].status}' | grep -q "True"; do \
+        if oc get job $(JOB_NAME) -n $(NAMESPACE) -o jsonpath='{.status.conditions[?(@.type=="Failed")].status}' | grep -q "True"; then \
+            echo "Job $(JOB_NAME) failed."; \
+            exit 1; \
+        fi; \
+        echo "Job $(JOB_NAME) is still running..."; \
+        sleep 10; \
+    done	
+	
+	oc delete -f $(BASE)/yaml/distributed/git-clone.yaml
+
+	oc create -f $(BASE)/yaml/distributed/workbench.yaml
 	
