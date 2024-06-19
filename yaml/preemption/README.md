@@ -78,6 +78,10 @@ Team A will preempt team B because it has insufficient resources to run.
 
 ## Setting Up the Demo
 
+1. Ensure [prerequisite](../../) is already configured. 
+
+2. Run the makefile target
+
 ```
 make setup-kueue-examples
 ```
