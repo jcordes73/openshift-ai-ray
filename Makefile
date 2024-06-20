@@ -53,6 +53,7 @@ setup-ray-distributed-training:
 	-oc delete -f $(BASE)/yaml/distributed/ns.yaml
 
 	oc create -f $(BASE)/yaml/distributed/ns.yaml
+	oc create -f $(BASE)/yaml/distributed/rolebinding.yaml
 	oc create -f $(BASE)/yaml/distributed/default-flavor.yaml -f $(BASE)/yaml/distributed/gpu-flavor.yaml
 	oc create -f $(BASE)/yaml/distributed/cluster-queue.yaml
 	oc create -f $(BASE)/yaml/distributed/local-queue.yaml
