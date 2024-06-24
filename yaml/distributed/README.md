@@ -88,11 +88,9 @@ The images will be shown using `matplotlib`.
 
 ### Interacting with the Model with an App
 
-Use `04 raytrain-stablediffusion-streamlit.ipynb` to build the app using OpenShift. OpenShift provides several ways to build you app to integerate with the model serving.
+Use `04 raytrain-stablediffusion-streamlit.ipynb` to build the [Streamlit app](../../app/app.py) using OpenShift. OpenShift provides several ways to build you app to integerate with the model serving.
 
-The demo uses the oc [cli](https://docs.openshift.com/container-platform/4.15/applications/creating_applications/creating-applications-using-cli.html) with a source build strategy from a git repository to build the application. 
-
-A [BuildConfig](https://docs.openshift.com/container-platform/4.15/cicd/builds/understanding-image-builds.html) is created. A BuildConfig object is the definition of the entire build process and defines the Source-to-Image (S2I) build. 
+The demo uses the oc [cli](https://docs.openshift.com/container-platform/4.15/applications/creating_applications/creating-applications-using-cli.html) with a source build strategy from a git repository to build the application. A [BuildConfig](https://docs.openshift.com/container-platform/4.15/cicd/builds/understanding-image-builds.html) is created. A BuildConfig object is the definition of the entire build process and defines the Source-to-Image (S2I) build. 
 
 Once the app is deployed, you can access it via the route.
 
