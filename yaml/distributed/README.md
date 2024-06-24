@@ -16,6 +16,8 @@ In this example, a workbench will be automatically created in this example with 
 | -------------------- | ----------- |
 | [Introduction](../../notebook/00%20Intro.ipynb)   | A simple demostrate of ray remote function         |
 | [Ray Train with Stable Diffusion](../../notebook/01%20raytrain-stablediffusion.ipynb) | Using Ray train to distibute training
+| [Archiving and uploading model](../../notebook/02%20raytrain-stablediffusion-upload-model.ipynb) | Using Torch model archiver and upload to S3 bucket
+| [Serving using KServe](../../notebook/03%20raytrain-stablediffusion-model-serving.ipynb) | Setting up KServe with PyTorch |
 
 ## Prerequisite
 
