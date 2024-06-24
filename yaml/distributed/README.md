@@ -18,6 +18,7 @@ In this example, a workbench will be automatically created in this example with 
 | [Ray Train with Stable Diffusion](../../notebook/01%20raytrain-stablediffusion.ipynb) | Using Ray train to distibute training
 | [Archiving and uploading model](../../notebook/02%20raytrain-stablediffusion-upload-model.ipynb) | Using Torch model archiver and upload to S3 bucket
 | [Serving using KServe](../../notebook/03%20raytrain-stablediffusion-model-serving.ipynb) | Setting up KServe with PyTorch |
+| [Text-to-Image Chatbot](../../notebook/04%20raytrain-stablediffusion-streamlit.ipynb) | Deploying Streamlit chat app 
 
 ## Prerequisite
 
@@ -80,7 +81,19 @@ The images will be shown using `matplotlib`.
 
 ![diog diog pictures](images/diog-diog.png)
 
-### Uploading and serving the model using KServe 
+### Uploading and Serving the Model Using KServe
 
 * `02 raytrain-stablediffusion-upload-model.ipynb` uploads the tuned model to a local S3 bucket.
 * `03 raytrain-stablediffusion-model-serving.ipynb` sets up KServe with PyTorch
+
+### Interacting with the Model with an App
+
+Use `04 raytrain-stablediffusion-streamlit.ipynb` to build the app using OpenShift. OpenShift provides several ways to build you app to integerate with the model serving.
+
+The demo uses the oc [cli](https://docs.openshift.com/container-platform/4.15/applications/creating_applications/creating-applications-using-cli.html) with a source build strategy from a git repository to build the application. 
+
+A [BuildConfig](https://docs.openshift.com/container-platform/4.15/cicd/builds/understanding-image-builds.html) is created. A BuildConfig object is the definition of the entire build process and defines the Source-to-Image (S2I) build. 
+
+Once the app is deployed, you can access it via the route.
+
+![alt text](images/streamlit-chat.png)
