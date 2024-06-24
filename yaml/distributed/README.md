@@ -77,3 +77,8 @@ Once the model hase been fine tuned, you can [generate](https://docs.ray.io/en/l
 The images will be shown using `matplotlib`.
 
 ![diog diog pictures](images/diog-diog.png)
+
+### Uploading and serving the model using KServe 
+
+* `02 raytrain-stablediffusion-upload-model.ipynb` uploads the tuned model to a local S3 bucket.
+* `03 raytrain-stablediffusion-model-serving.ipynb` sets up KServe with PyTorch

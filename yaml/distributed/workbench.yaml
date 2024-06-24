@@ -83,6 +83,9 @@ spec:
               subPath: ca-bundle.crt      
           image: 'image-registry.openshift-image-registry.svc:5000/redhat-ods-applications/s2i-generic-data-science-notebook:2024.1'
           workingDir: /opt/app-root/src
+          envFrom:
+            - secretRef:
+                name: aws-connection-minio
         - resources:
             limits:
               cpu: 100m
