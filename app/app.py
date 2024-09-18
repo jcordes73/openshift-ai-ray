@@ -4,6 +4,7 @@
 
 import streamlit as st
 import requests
+import urllib3
 import json
 import os
 from PIL import Image
@@ -39,7 +40,8 @@ def call_api(prompt):
 
     logger.info(f"API endpoint: {endpoint}")
 
-    response = requests.post(endpoint, json=payload)
+    requests.packages.urllib3.disable_warnings(requests.packages.urllib3.exceptions.InsecureRequestWarning)
+    response = requests.post(endpoint, json=payload, verify=False)
 
     return json.loads(response.text)['predictions'][0]
 
